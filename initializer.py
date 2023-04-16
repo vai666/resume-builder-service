@@ -9,9 +9,8 @@ from config import Development, Test, Production
 db: SQLAlchemy = SQLAlchemy()
 migrate: Migrate = Migrate()
 
-
 def create_app(env: str) -> Flask:
-    app: Flask = Flask(__name__)
+    app: Flask = Flask('App')
     app_config: object = get_config(env)
     app.config.from_object(app_config)
     db.init_app(app)
@@ -22,11 +21,11 @@ def create_app(env: str) -> Flask:
 def get_config(env: str) -> object:
     app_config: object = None
 
-    if env == "Development":
+    if env == "development":
         app_config = Development
-    elif env == "Test":
+    elif env == "test":
         app_config = Test
-    elif env == "Production":
+    elif env == "production":
         app_config = Production
     else:
         raise ValueError(f"There is no env type for {env}")

@@ -1,8 +1,12 @@
 # pylint: disable=missing-docstring
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 class Development:
-    SQLALCHEMY_DATABASE_URI: str = os.environ.get("DEV_DB_URI")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DEV_DB_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     DEBUG: bool = True
