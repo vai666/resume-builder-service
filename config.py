@@ -1,9 +1,10 @@
-""" import os to get environ from .env """
+# pylint: disable=missing-docstring
 import os
 
 class Development:
-    """ Configuration for dev environment """
-    DB_URI: str = os.environ.get("DEV_DB_URI")
+    SQLALCHEMY_DATABASE_URI: str = os.environ.get("DEV_DB_URI")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = True
     DEBUG: bool = True
     FIREBASE_API_KEY: str = os.environ.get("DEV_FIREBASE_API_KEY")
     FIREBASE_AUTH_DOMAIN: str = os.environ.get("DEV_FIREBASE_AUTH_DOMAIN")
@@ -13,8 +14,8 @@ class Development:
     FIREBASE_APP_ID: str = os.environ.get("DEV_FIREBASE_APP_ID")
 
 class Test:
-    """ Configuration for test environment """
-    DB_URI: str = os.environ.get("TEST_DB_URI")
+    SQLALCHEMY_DATABASE_URI: str = os.environ.get("TEST_DB_URI")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG: bool = True
     SECRET_KEY: str = os.environ.get("TEST_SECRET_KEY")
     FIREBASE_API_KEY: str = os.environ.get("TEST_FIREBASE_API_KEY")
@@ -25,8 +26,8 @@ class Test:
     FIREBASE_APP_ID: str = os.environ.get("TEST_FIREBASE_APP_ID")
 
 class Production:
-    """ Configuration for production environment """
-    DB_URI: str = os.environ.get("DB_URI")
+    SQLALCHEMY_DATABASE_URI: str = os.environ.get("DB_URI")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG: bool = False
     SECRET_KEY: str = os.environ.get("SECRET_KEY")
     FIREBASE_API_KEY: str = os.environ.get("FIREBASE_API_KEY")
