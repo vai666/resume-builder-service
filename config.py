@@ -4,6 +4,7 @@ import os
 class Development:
     """ Configuration for dev environment """
     DB_URI: str = os.environ.get("DEV_DB_URI")
+    DEBUG: bool = True
     FIREBASE_API_KEY: str = os.environ.get("DEV_FIREBASE_API_KEY")
     FIREBASE_AUTH_DOMAIN: str = os.environ.get("DEV_FIREBASE_AUTH_DOMAIN")
     FIREBASE_PROJECT_ID: str = os.environ.get("DEV_FIREBASE_PROJECT_ID")
