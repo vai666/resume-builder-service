@@ -11,8 +11,16 @@ class BaseService(ABC):
     def __init__(self, model: db.Model):
         self.entity = model
 
-    def get(self, id: str) -> db.Model:
-        return self.entity.query.get(id)
+    def get(self, id: str, serialize: bool=True) -> db.Model:
+        entity = self.entity.query.get(id)
+
+        if entity is None:
+            return None
+       
+        if serialize:
+            return entity.to_dict()
+       
+        return entity
 
     def delete(self, id: str) -> str:
         self.entity.query.filter_by(id=id).delete()
@@ -24,7 +32,7 @@ class BaseService(ABC):
         pass
 
     @abstractmethod
-    def save(self, data: dict) -> str:
+    def save(self, data: dict) -> dict:
         pass
 
     @abstractmethod
