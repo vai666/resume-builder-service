@@ -7,7 +7,7 @@ load_dotenv()
 
 class Development:
     SQLALCHEMY_DATABASE_URI = os.environ.get("DEV_DB_URI")
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_RECORD_QUERIES = True
     DEBUG: bool = True
     FIREBASE_API_KEY: str = os.environ.get("DEV_FIREBASE_API_KEY")

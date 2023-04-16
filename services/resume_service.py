@@ -19,7 +19,7 @@ class ResumeService(BaseService):
 
         for entity in entities:
             if serialize:
-                result.append(entity.toDict())
+                result.append(entity.to_dict())
             else:
                 result.append(entity)
 

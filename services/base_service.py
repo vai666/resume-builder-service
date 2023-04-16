@@ -5,6 +5,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 from initializer import db
+from sqlalchemy.exc import OperationalError
 
 
 class BaseService(ABC):
@@ -12,18 +13,20 @@ class BaseService(ABC):
         self.model = model
 
     def get(self, id: str, email: str, serialize: bool=True) -> db.Model:
-        entity = self.model.query.filter_by(id=id, email=email).first()
-
-        if entity is None:
+        try:
+            entity = self.model.query.filter_by(id=id, email=email).first()
+            if entity is None:
+                return None
+        
+            if serialize:
+                return entity.to_dict()
+        
+            return entity
+        except OperationalError as error:
             return None
-      
-        if serialize:
-            return entity.to_dict()
-      
-        return entity
 
-    def delete(self, id: str) -> str:
-        self.model.query.filter_by(id=id).delete()
+    def delete(self, id: str, email: str) -> str:
+        self.model.query.filter_by(id=id, email=email).delete()
         db.session.commit()
         return id
 
