@@ -4,7 +4,6 @@
 
 import uuid
 from typing import List
-from sqlalchemy.exc import OperationalError
 from services.base_service import BaseService
 from models.experience import Experience
 from initializer import db
@@ -28,10 +27,10 @@ class ExperienceService(BaseService):
         return result
 
     def save(self, data: dict) -> dict:
-        entity = Experience(name=data["name"], id=uuid.uuid4(), email=data["email"], company_name=data["company_name"], 
-                            job_desc=data["job_desc"], month_from=data["month_from"], year_from=data["year_from"], 
-                            month_to=data["month_to"], year_to=data["year_to"], additional_info=data["additional_info"], 
-                            description=data["description"], formatted=data["formatted"], is_present=data["is_present"])
+        entity = Experience(id=uuid.uuid4(), resume_id=data["resume_id"], email=data["email"],
+                            company_name=data["company_name"], job_desc=data["job_desc"], month_from=data["month_from"], 
+                            year_from=data["year_from"], month_to=data["month_to"], year_to=data["year_to"],
+                            additional_info=data["additional_info"], description=data["description"], formatted=data["formatted"], is_present=data["is_present"])
 
         db.session.add(entity)
         db.session.commit()

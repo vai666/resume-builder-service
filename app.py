@@ -12,9 +12,11 @@ app: Flask = create_app(env)
 
 from blueprints.auth_blueprint import auth_blueprint
 from blueprints.resume_blueprint import resume_blueprint
+from blueprints.experience_blueprint import experience_blueprint
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(resume_blueprint)
+app.register_blueprint(experience_blueprint)
 
 @app.errorhandler(404)
 def not_found(e) -> Response:
