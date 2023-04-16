@@ -6,6 +6,8 @@ from pyrebase import pyrebase
 from initializer import get_config
 from services.resume_service import ResumeService
 from models.resume import Resume
+from services.experience_service import ExperienceService
+from models.experience import Experience
 
 
 class AppModule(Module):
@@ -28,4 +30,5 @@ class AppModule(Module):
         auth: pyrebase.Auth = firebase.auth()
 
         binder.bind(ResumeService, to=ResumeService(Resume()), scope=singleton)
+        binder.bind(ExperienceService, to=ExperienceService(Experience()), scope=singleton)
         binder.bind(pyrebase.Auth, to=auth)
