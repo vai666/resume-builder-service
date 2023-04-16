@@ -26,7 +26,7 @@ class ResumeService(BaseService):
         return result
 
     def save(self, data: dict) -> dict:
-        entity = Resume(name=data["name"], id=uuid.uuid4())
+        entity = Resume(name=data["name"], id=uuid.uuid4(), email=data["email"])
         db.session.add(entity)
         db.session.commit()
         return entity.to_dict()
