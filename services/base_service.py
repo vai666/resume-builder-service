@@ -12,16 +12,18 @@ class BaseService(ABC):
     def __init__(self, model: db.Model):
         self.model = model
 
-    def get_by_resume(self, resume_id: str, email: str, serialize=True) -> db.Model:
+    def get_by_resume(self, resume_id: str, email: str, serialize=True) -> List[db.Model]:
         try:
-            entity = self.model.query.filter_by(resume_id=resume_id, email=email).first()
-            if entity is None:
-                return None
-       
-            if serialize:
-                return entity.to_dict()
-       
-            return entity
+            entities = self.model.query.filter_by(resume_id=resume_id, email=email).all()
+            result = []
+
+            for entity in entities:
+                if serialize:
+                    result.append(entity.to_dict())
+                else:
+                    result.append(entity)
+
+            return result
         except OperationalError:
             return None
         
