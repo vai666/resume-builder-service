@@ -1,7 +1,7 @@
 # pylint: disable=missing-docstring
 
 import os
-from flask import Flask, request, abort
+from flask import Flask
 from flask_injector import FlaskInjector
 from initializer import create_app
 from app_module import AppModule

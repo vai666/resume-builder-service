@@ -14,22 +14,25 @@ resume_blueprint = Blueprint('Resume', __name__)
 @requires_auth
 @inject
 @resume_blueprint.route('/api/<id>', methods=["GET"])
-def get(id: str, service: ResumeService, auth: pyrebase.Auth):
-    entity = service.get(id)
+def get(id: str, service: ResumeService, auth: pyrebase.Auth, email: str):
+    entity = service.get(id, email)
     return jsonify(entity)
 
-@requires_auth
+
 @inject
+@requires_auth
 @resume_blueprint.route('/api/', methods=["GET"])
-def get_all(service: ResumeService, auth: pyrebase.Auth):
-    args = request.args
+def get_all(service: ResumeService, auth: pyrebase.Auth, email: str):
+    args = dict(request.args)
+    args["email"] = email
     entities = service.get_all(args)
     return jsonify(entities)
 
 @requires_auth
 @inject
 @resume_blueprint.route('/api/', methods=["POST"])
-def save(service: ResumeService, auth: pyrebase.Auth):
+def save(service: ResumeService, auth: pyrebase.Auth, email: str):
     data = request.json
-    id = service.save(data)
-    return jsonify(id)
+    data["email"] = email
+    entity = service.save(data)
+    return jsonify(entity)

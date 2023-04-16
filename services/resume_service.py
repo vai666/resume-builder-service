@@ -13,8 +13,17 @@ class ResumeService(BaseService):
     def __init__(self, model: Resume):
         super().__init__(model)
 
-    def get_all(self, filter: dict) -> List[Resume]:
-        pass
+    def get_all(self, filter: dict, serialize=True) -> List[Resume]:
+        entities: List[Resume] = self.model.query.filter_by(email=filter["email"]).all()
+        result = []
+
+        for entity in entities:
+            if serialize:
+                result.append(entity.toDict())
+            else:
+                result.append(entity)
+
+        return result
 
     def save(self, data: dict) -> dict:
         entity = Resume(name=data["name"], id=uuid.uuid4())
