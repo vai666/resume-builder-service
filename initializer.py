@@ -1,6 +1,5 @@
 # pylint: disable=missing-docstring
 
-from injector import Binder, Module
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -10,9 +9,7 @@ from config import Development, Test, Production
 db: SQLAlchemy = SQLAlchemy()
 migrate: Migrate = Migrate()
 
-class AppModule(Module):
-    def configure(self, binder: Binder) -> None:
-        pass
+
 
 def create_app(env: str) -> Flask:
     app: Flask = Flask(__name__)
