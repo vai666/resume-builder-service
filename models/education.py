@@ -7,7 +7,7 @@ from models.base import Base
 class Education(Base):
     __tablename__ = "educations"
     id = db.Column(db.UUID(as_uuid=True), primary_key=True)
-    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resume.id"))
+    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resumes.id"))
     email = db.Column(db.String(150))
     major = db.Column(db.String, nullable=True)
     institution = db.Column(db.String(200), nullable=True)

@@ -7,7 +7,7 @@ from models.base import Base
 class Header(Base):
     __tablename__ = "headers"
     id = db.Column(db.UUID(as_uuid=True), primary_key=True)
-    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resume.id"))
+    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resumes.id"))
     email = db.Column(db.String(150))
     first_name = db.Column(db.String(100), nullable=True)
     last_name = db.Column(db.String(100), nullable=True)

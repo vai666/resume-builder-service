@@ -7,7 +7,7 @@ from models.base import Base
 class Experience(Base):
     __tablename__ = "experiences"
     id = db.Column(db.UUID(as_uuid=True), primary_key=True)
-    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resume.id"))
+    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resumes.id"))
     email = db.Column(db.String(150))
     company_name = db.Column(db.String(100), nullable=True)
     job_desc = db.Column(db.String(100), nullable=True)

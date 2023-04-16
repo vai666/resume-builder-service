@@ -4,19 +4,17 @@
 
 import uuid
 from typing import List
-from sqlalchemy.exc import OperationalError
 from services.base_service import BaseService
-from models.experience import Experience
+from models.achievement import Achievement
 from initializer import db
 
 
-class ExperienceService(BaseService):
-    def __init__(self, model: Experience):
+class AchievementService(BaseService):
+    def __init__(self, model: Achievement):
         super().__init__(model)
 
-    def get_all(self, filter: dict, serialize=True) -> List[Experience]:
-        email = filter["email"]
-        entities: List[Experience] = self.model.query.filter_by(email=email).all()
+    def get_all(self, filter: dict, serialize=True) -> List[Achievement]:
+        entities: List[Achievement] = self.model.query.filter_by(email=filter["email"]).all()
         result = []
 
         for entity in entities:
@@ -28,7 +26,7 @@ class ExperienceService(BaseService):
         return result
 
     def save(self, data: dict) -> dict:
-        entity = Experience(name=data["name"], id=uuid.uuid4(), email=data["email"])
+        entity = Achievement(name=data["name"], id=uuid.uuid4(), email=data["email"])
         db.session.add(entity)
         db.session.commit()
         return entity.to_dict()

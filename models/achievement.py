@@ -7,7 +7,7 @@ from models.base import Base
 class Achievement(Base):
     __tablename__ = "achievements"
     id = db.Column(db.UUID(as_uuid=True), primary_key=True)
-    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resume.id"))
+    resume_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey("resumes.id"))
     email = db.Column(db.String(150))
     name = db.Column(db.String, nullable=True)
     year = db.Column(db.Integer, nullable=True)
