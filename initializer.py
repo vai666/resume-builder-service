@@ -3,13 +3,25 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from pyrebase import pyrebase
 from config import Development, Test, Production
-
 
 db: SQLAlchemy = SQLAlchemy()
 migrate: Migrate = Migrate()
 
 
+def create_auth(env: str) -> pyrebase.Firebase:
+    app_config: object = get_config(env)
+    firebase: pyrebase.Firebase = pyrebase.initialize_app({
+        "apiKey": app_config.FIREBASE_API_KEY,
+        "authDomain": app_config.FIREBASE_AUTH_DOMAIN,
+        "databaseURL": "",
+        "projectId": app_config.FIREBASE_PROJECT_ID,
+        "storageBucket": app_config.FIREBASE_STORAGE_BUCKET,
+        "messagingSenderId": app_config.FIREBASE_MESSAGING_SENDER_ID,
+        "appId": app_config.FIREBASE_APP_ID
+    })
+    return firebase
 
 def create_app(env: str) -> Flask:
     app: Flask = Flask(__name__)
