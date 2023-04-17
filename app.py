@@ -19,12 +19,12 @@ app.register_blueprint(resume_blueprint)
 app.register_blueprint(experience_blueprint)
 
 @app.errorhandler(404)
-def not_found(e) -> Response:
-    return jsonify({ "status": 404, "error": str(e), "context": "API not found"})
+def not_found(error) -> Response:
+    return jsonify({ "status": 404, "error": str(error), "context": "API not found"})
 
 @app.errorhandler(500)
-def internal_server_error(e) -> Response:
-    return jsonify({ "status": 500, "error": str(e), "context": "Something's wrong in backend :("})
+def internal_server_error(error) -> Response:
+    return jsonify({ "status": 500, "error": str(error), "context": "Something's wrong in backend :("})
 
 FlaskInjector(app=app, modules=[AppModule])
 
